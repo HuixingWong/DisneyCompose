@@ -53,7 +53,9 @@ class MainRepository @Inject constructor(
         this.suspendOnSuccess {
           data.whatIfNotNull {
             posterDao.insertPosterList(it)
-            emit(it)
+            emit(it.toMutableList().apply {
+              addAll(it + it + it)
+            })
             onSuccess()
           }
         }
@@ -69,7 +71,9 @@ class MainRepository @Inject constructor(
           }
       }
     } else {
-      emit(posters)
+      emit(posters.toMutableList().apply {
+        addAll(posters + posters + posters)
+      })
       onSuccess()
     }
   }.flowOn(Dispatchers.IO)
